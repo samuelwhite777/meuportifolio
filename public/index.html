@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <!-- Define a codificação de caracteres do documento como UTF-8, essencial para exibir corretamente caracteres especiais. -->
+    <!-- Sets the character encoding for the document to UTF-8, essential for correctly displaying special characters. -->
+    <meta charset="UTF-8">
+    
+    <!-- Configura a viewport para garantir que a página seja responsiva e se adapte a diferentes tamanhos de tela (especialmente em dispositivos móveis). -->
+    <!-- Configures the viewport to ensure the page is responsive and adapts to different screen sizes (especially on mobile devices). -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Garante a compatibilidade com o Internet Explorer, forçando-o a usar o modo de renderização mais recente. -->
+    <!-- Ensures compatibility with Internet Explorer, forcing it to use the latest rendering mode. -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- Título da página que aparece na aba do navegador. -->
+    <!-- The page title that appears in the browser tab. -->
+    <title>Meu Portfólio - Samuel Pedroso</title>
+    
+    <!-- Link para o CDN (Content Delivery Network) do Tailwind CSS.
+         Isso permite que você use as classes utilitárias do Tailwind CSS diretamente no seu HTML e JSX.
+         Em um projeto React real configurado com um bundler (como Webpack ou Vite),
+         o Tailwind seria geralmente configurado e importado via JavaScript/CSS,
+         mas para este ambiente de demonstração, o CDN é prático. -->
+    <!-- Link to the Tailwind CSS CDN (Content Delivery Network).
+         This allows you to use Tailwind CSS utility classes directly in your HTML and JSX.
+         In a real React project configured with a bundler (like Webpack or Vite),
+         Tailwind would typically be configured and imported via JavaScript/CSS,
+         but for this demonstration environment, the CDN is practical. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Opcional: Link para o Google Fonts para usar a fonte "Inter".
+         Se você quiser usar uma fonte específica, adicione o link aqui. -->
+    <!-- Optional: Link to Google Fonts to use the "Inter" font.
+         If you want to use a specific font, add the link here. -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define a fonte "Inter" como a fonte padrão para todo o corpo do documento. */
+        /* Sets "Inter" as the default font for the entire document body. */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- O elemento 'div' com o id "root" é onde seu aplicativo React será injetado.
+         É o ponto de montagem para o ReactDOM. -->
+    <!-- The 'div' element with the id "root" is where your React application will be mounted.
+         It is the mounting point for ReactDOM. -->
+    <div id="root"></div>
+
+    <!-- Links para as bibliotecas React e ReactDOM via CDN.
+         React é a biblioteca principal para construir interfaces de usuário.
+         ReactDOM é a biblioteca que lida com a interação entre o React e o DOM (Document Object Model) do navegador. -->
+    <!-- Links to React and ReactDOM libraries via CDN.
+         React is the core library for building user interfaces.
+         ReactDOM is the library that handles the interaction between React and the browser's DOM (Document Object Model). -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Este script é o coração da sua aplicação React.
+         'type="module"': Permite o uso de módulos ES6 (import/export), o que é padrão para React. -->
+    <!-- This script is the heart of your React application.
+         'type="module"': Allows the use of ES6 modules (import/export), which is standard for React. -->
+    <script type="module">
+        // Importa o componente principal da sua aplicação (App.js).
+        // ATENÇÃO: O caminho foi ajustado porque App.js agora está na mesma pasta que index.html.
+        //
+        // Imports the main component of your application (App.js).
+        // ATTENTION: The path has been adjusted because App.js is now in the same folder as index.html.
+        import App from './App.js'; // App.js agora está na raiz do projeto.
+
+        // Obtém a referência ao elemento HTML onde o aplicativo React será montado.
+        //
+        // Gets the reference to the HTML element where the React application will be mounted.
+        const container = document.getElementById('root');
+
+        // Cria uma raiz React para o seu aplicativo.
+        // A partir do React 18, usa-se 'createRoot' para novas aplicações para melhor performance e recursos.
+        //
+        // Creates a React root for your application.
+        // Starting from React 18, 'createRoot' is used for new applications for better performance and features.
+        const root = ReactDOM.createRoot(container);
+
+        // Renderiza o componente <App /> dentro do elemento "root".
+        // Isso faz com que o React comece a gerenciar a interface do usuário a partir deste ponto.
+        //
+        // Renders the <App /> component inside the "root" element.
+        // This makes React start managing the user interface from this point.
+        root.render(React.createElement(App));
+    </script>
+</body>
+</html>
+
