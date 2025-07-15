@@ -1,307 +1,94 @@
-import React, { useState, useEffect } from 'react';
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <!-- Define a codificação de caracteres do documento como UTF-8, essencial para exibir corretamente caracteres especiais. -->
+    <!-- Sets the character encoding for the document to UTF-8, essential for correctly displaying special characters. -->
+    <meta charset="UTF-8">
+    
+    <!-- Configura a viewport para garantir que a página seja responsiva e se adapte a diferentes tamanhos de tela (especialmente em dispositivos móveis). -->
+    <!-- Configures the viewport to ensure the page is responsive and adapts to different screen sizes (especially on mobile devices). -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Garante a compatibilidade com o Internet Explorer, forçando-o a usar o modo de renderização mais recente. -->
+    <!-- Ensures compatibility with Internet Explorer, forcing it to use the latest rendering mode. -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- Título da página que aparece na aba do navegador. -->
+    <!-- The page title that appears in the browser tab. -->
+    <title>Meu Portfólio - Samuel Pedroso</title>
+    
+    <!-- Link para o CDN (Content Delivery Network) do Tailwind CSS.
+         Isso permite que você use as classes utilitárias do Tailwind CSS diretamente no seu HTML e JSX.
+         Em um projeto React real configurado com um bundler (como Webpack ou Vite),
+         o Tailwind seria geralmente configurado e importado via JavaScript/CSS,
+         mas para este ambiente de demonstração, o CDN é prático. -->
+    <!-- Link to the Tailwind CSS CDN (Content Delivery Network).
+         This allows you to use Tailwind CSS utility classes directly in your HTML and JSX.
+         In a real React project configured with a bundler (like Webpack or Vite),
+         Tailwind would typically be configured and imported via JavaScript/CSS,
+         but for this demonstration environment, the CDN is practical. -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-// Main App Component
-const App = () => {
-  const [activeSection, setActiveSection] = useState('home'); // State to manage active activeSection for navigation
+    <!-- Opcional: Link para o Google Fonts para usar a fonte "Inter".
+         Se você quiser usar uma fonte específica, adicione o link aqui. -->
+    <!-- Optional: Link to Google Fonts to use the "Inter" font.
+         If you want to use a specific font, add the link here. -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define a fonte "Inter" como a fonte padrão para todo o corpo do documento. */
+        /* Sets "Inter" as the default font for the entire document body. */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- O elemento 'div' com o id "root" é onde seu aplicativo React será injetado.
+         É o ponto de montagem para o ReactDOM. -->
+    <!-- The 'div' element with the id "root" is where your React application will be mounted.
+         It is the mounting point for ReactDOM. -->
+    <div id="root"></div>
 
-  // Scroll to top when section changes (optional, but good for UX)
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [activeSection]);
+    <!-- Links para as bibliotecas React e ReactDOM via CDN.
+         React é a biblioteca principal para construir interfaces de usuário.
+         ReactDOM é a biblioteca que lida com a interação entre o React e o DOM (Document Object Model) do navegador. -->
+    <!-- Links to React and ReactDOM libraries via CDN.
+         React is the core library for building user interfaces.
+         ReactDOM is the library that handles the interaction between React and the browser's DOM (Document Object Model). -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 
-  // Navigation component
-  const NavBar = () => (
-    <nav className="bg-gradient-to-r from-blue-600 to-indigo-700 p-4 shadow-lg fixed w-full z-10 top-0 rounded-b-lg">
-      <div className="container mx-auto flex justify-between items-center flex-wrap">
-        {/* Replaced "Samuel Pedroso" text with an SVG symbol for "SP" */}
-        <div className="text-white cursor-pointer" onClick={() => setActiveSection('home')}>
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="inline-block mr-2">
-            <rect width="40" height="40" rx="10" fill="currentColor"/> {/* Background for the symbol */}
-            <path d="M12 15H20C22.2091 15 24 16.7909 24 19C24 21.2091 22.2091 23 20 23H16V25H24V27H16C13.7909 27 12 25.2091 12 23V15ZM16 17V21H20C20.5523 21 21 20.5523 21 20C21 19.4477 20.5523 19 20 19H16V17Z" fill="#FFFFFF"/> {/* Stylized 'S' */}
-            <path d="M28 15H32V27H28V15Z" fill="#FFFFFF"/> {/* Part of 'P' - vertical bar */}
-            <path d="M28 15H32V17H28V15Z" fill="#FFFFFF"/> {/* Part of 'P' - top horizontal bar */}
-            <path d="M28 15C30.2091 15 32 16.7909 32 19V21C32 23.2091 30.2091 25 28 25H24V15H28Z" fill="#FFFFFF"/> {/* Part of 'P' - curved top */}
-          </svg>
-          <span className="text-2xl font-bold tracking-wider">Samuel Pedroso</span> {/* Keeping the name for clarity, but the symbol is the focus */}
-        </div>
-        <div className="flex space-x-6 text-lg">
-          <NavItem section="home" label="Início" />
-          <NavItem section="about" label="Sobre Mim" />
-          <NavItem section="experience" label="Experiência" />
-          <NavItem section="projects-expertise" label="Projetos & Expertise" /> {/* Updated navigation */}
-          <NavItem section="contact" label="Contato" />
-        </div>
-      </div>
-    </nav>
-  );
+    <!-- Este script é o coração da sua aplicação React.
+         'type="module"': Permite o uso de módulos ES6 (import/export), o que é padrão para React. -->
+    <!-- This script is the heart of your React application.
+         'type="module"': Allows the use of ES6 modules (import/export), which is standard for React. -->
+    <script type="module">
+        // Importa o componente principal da sua aplicação (App.js).
+        // ATENÇÃO: O caminho foi ajustado porque App.js agora está na mesma pasta que index.html.
+        //
+        // Imports the main component of your application (App.js).
+        // ATTENTION: The path has been adjusted because App.js is now in the same folder as index.html.
+        import App from './App.js'; // App.js agora está na raiz do projeto.
 
-  // Navigation Item Component
-  const NavItem = ({ section, label }) => (
-    <button
-      onClick={() => setActiveSection(section)}
-      className={`text-white hover:text-blue-200 transition duration-300 ease-in-out px-3 py-2 rounded-md ${
-        activeSection === section ? 'bg-blue-700 font-semibold' : ''
-      }`}
-    >
-      {label}
-    </button>
-  );
+        // Obtém a referência ao elemento HTML onde o aplicativo React será montado.
+        //
+        // Gets the reference to the HTML element where the React application will be mounted.
+        const container = document.getElementById('root');
 
-  // Section Wrapper Component for consistent styling
-  const Section = ({ id, title, children }) => (
-    // Changed background from bg-gray-50 to bg-gray-900 for dark theme
-    <section id={id} className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 flex flex-col justify-center items-center text-center">
-      {/* Changed background from bg-white to bg-gray-800 for dark theme, and text color */}
-      <div className="max-w-4xl w-full bg-gray-800 p-8 rounded-xl shadow-2xl transform transition-all duration-500 hover:scale-[1.01] border-t-4 border-blue-600">
-        {/* Changed text color from text-gray-900 to text-white for dark theme */}
-        <h2 className="text-4xl font-extrabold text-white mb-8 pb-4 border-b-2 border-blue-500">{title}</h2>
-        {children}
-      </div>
-    </section>
-  );
+        // Cria uma raiz React para o seu aplicativo.
+        // A partir do React 18, usa-se 'createRoot' para novas aplicações para melhor performance e recursos.
+        //
+        // Creates a React root for your application.
+        // Starting from React 18, 'createRoot' is used for new applications for better performance and features.
+        const root = ReactDOM.createRoot(container);
 
-  // Hero Section
-  const HeroSection = () => (
-    <Section id="home" title="Samuel Pedroso: O Polimata da Tecnologia">
-      {/* Adjusted text colors for dark theme */}
-      <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-        Sou um entusiasta da tecnologia com uma paixão inabalável por transformar desafios em soluções inovadoras.
-        Minha jornada me levou a ser um verdadeiro polimata no campo da TI, atuando em diversas frentes e gerando impacto significativo.
-      </p>
-      <p className="text-lg text-gray-400">
-        Explore meu portfólio para conhecer minha versatilidade em análise, sustentação, infraestrutura, dados e desenvolvimento,
-        e como minhas contribuições foram decisivas para o sucesso de negócios.
-      </p>
-      <button
-        onClick={() => setActiveSection('about')}
-        className="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1"
-      >
-        Saiba Mais Sobre Mim
-      </button>
-    </Section>
-  );
+        // Renderiza o componente <App /> dentro do elemento "root".
+        // Isso faz com que o React comece a gerenciar a interface do usuário a partir deste ponto.
+        //
+        // Renders the <App /> component inside the "root" element.
+        // This makes React start managing the user interface from this point.
+        root.render(React.createElement(App));
+    </script>
+</body>
+</html>
 
-  // About Section
-  const AboutSection = () => (
-    <Section id="about" title="Sobre Mim e Minha Abordagem">
-      {/* Adjusted text colors for dark theme and converted **text** to <strong>text</strong> */}
-      <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-        Com mais de 130 pontos em TI e uma trajetória acadêmica diversificada que inclui Direito, Engenharia de Software e Ciência de Dados (mesmo que não concluídas),
-        minha curiosidade e sede por conhecimento são insaciáveis. Essa bagagem me confere uma perspectiva única e uma capacidade de aprendizado por demanda em tempo recorde.
-      </p>
-      <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-        Minha lógica de programação e resolução de problemas são focadas em soluções permanentes e eficientes.
-        Possuo conhecimento prático na administração de incidentes e sou um forte defensor do uso de automações para otimizar processos e reduzir falhas humanas.
-      </p>
-      <p className="text-lg text-gray-300 mb-6 leading-relaxed font-semibold text-blue-400"> {/* Adjusted text-blue-800 to text-blue-400 for dark theme */}
-        Acredito fielmente que a tecnologia é a ferramenta mais interessante do mundo para salvar vidas, trazer qualidade, segurança e agilidade para a resolução de problemas, e até mesmo para o prolongamento da vida com qualidade de toda a humanidade. Esses são norteadores que me fazem trabalhar nessa área, indo além do dinheiro e da ambição pessoal, com a genuína vontade de contribuir para a humanidade e a transformação do mundo através dessa ferramenta potencializadora.
-      </p>
-      <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-        Além do meu trabalho profissional, sou impulsionado por projetos pessoais de paixão pela tecnologia que acredito poderem contribuir significativamente para a humanidade e para o futuro dos meus filhos:
-      </p>
-      <ul className="list-disc list-inside text-lg text-gray-300 space-y-2 mb-6 text-left mx-auto max-w-2xl">
-        <li>
-          <strong>ESCAMBO (Criptomoeda):</strong> Uma criptomoeda idealizada para financiar um DApp de criação de moedas próprias, atreladas a produtos reais. O objetivo é gerar um "escambo digital" futuro, oferecendo uma alternativa para fugir das oscilações de preço de moedas fiduciárias fracas.
-        </li>
-        <li>
-          <strong>VOTEX (Sistema de Votação em Blockchain):</strong> Um sistema de votações seguro, anônimo e auditável, construído sobre o ambiente da blockchain. Utiliza uma certificadora de identidade digital para garantir tanto a segurança quanto o anonimato dos votantes, promovendo transparência e confiança em processos democráticos.
-        </li>
-      </ul>
-      <p className="text-lg text-gray-300 leading-relaxed">
-        Como profissional e pessoa, sou movido pela curiosidade, resiliência e a busca contínua por excelência.
-        Minha capacidade de transitar entre diferentes áreas da tecnologia me permite conectar pontos e entregar valor em cenários complexos.
-      </p>
-    </Section>
-  );
-
-  // Experience Section
-  const ExperienceSection = () => (
-    <Section id="experience" title="Experiência Profissional: Saquers.Tech">
-      <div className="text-left w-full">
-        {/* Adjusted text colors for dark theme */}
-        <h3 className="text-2xl font-semibold text-gray-200 mb-4">Analista de TI II - Sustentação | Saquers.Tech | 12/2023 - 03/2025</h3>
-        <ul className="list-disc list-inside text-lg text-gray-300 space-y-3">
-          <li>
-            <strong>Análise e Sustentação Abrangente:</strong> Atuação vital na análise e sustentação de TI, garantindo a disponibilidade e o bom funcionamento de sistemas e ferramentas em todos os setores da empresa.
-          </li>
-          <li>
-            <strong>Treinamento e Capacitação:</strong> Responsável por ministrar treinamentos para usuários e equipes operacionais, capacitando-os no uso de ferramentas e na compreensão de dados, elevando a autonomia e eficiência.
-          </li>
-          <li>
-            <strong>Observabilidade e Dados:</strong> Domínio em ferramentas e técnicas de observabilidade, dados e Power BI, transformando grandes volumes de informação em insights acionáveis para a tomada de decisão.
-          </li>
-          <li>
-            <strong>Infraestrutura e Redes:</strong> Sólida expertise em infraestrutura, redes e servidores, assegurando a estabilidade e performance dos ambientes tecnológicos.
-          </li>
-          <li>
-            <strong>Automação e Desenvolvimento:</strong> Experiência prática em desenvolvimento com Python e PowerShell para automação de tarefas, otimizando processos e liberando recursos para iniciativas estratégicas.
-          </li>
-          <li>
-            <strong>Impacto Multifacetado:</strong> Minhas contribuições se estenderam desde engenheiros de software e desenvolvedores, passando por analistas, área comercial e operacional, até o CEO e diretores, fornecendo suporte especializado e insights críticos para o negócio.
-          </li>
-        </ul>
-      </div>
-    </Section>
-  );
-
-  // Accordion Item Component for Projects & Expertise
-  const AccordionItem = ({ title, content, isOpen, onClick }) => (
-    <div className="border border-gray-700 rounded-lg mb-4 shadow-sm"> {/* Adjusted border color for dark theme */}
-      <button
-        className="flex justify-between items-center w-full p-5 text-left text-xl font-semibold text-gray-100 bg-gray-700 hover:bg-gray-600 rounded-lg transition-all duration-300" // Adjusted background and text color for dark theme
-        onClick={onClick}
-      >
-        {title}
-        <svg
-          className={`w-6 h-6 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-        </svg>
-      </button>
-      {isOpen && (
-        <div className="p-5 border-t border-gray-700 bg-gray-800 text-gray-300"> {/* Adjusted border and background color for dark theme */}
-          {content}
-        </div>
-      )}
-    </div>
-  );
-
-  // Projects and Expertise Section
-  const ProjectsAndExpertiseSection = () => {
-    const [openItem, setOpenItem] = useState(null);
-
-    const toggleItem = (index) => {
-      setOpenItem(openItem === index ? null : index);
-    };
-
-    // Data for expertise accordion
-    const expertiseData = [
-      {
-        title: 'Inteligência Artificial (IA) & Inovação',
-        content: (
-          <div className="text-lg text-gray-300 space-y-4"> {/* Adjusted text color for dark theme */}
-            <p>
-              Meu domínio em Inteligência Artificial se traduz na capacidade de transformar dados complexos em soluções ágeis e escaláveis, utilizando IA como uma ferramenta potencializadora para a resolução de problemas críticos.
-            </p>
-            <h4 className="font-semibold text-gray-200">Expertise:</h4> {/* Adjusted text color for dark theme */}
-            <ul className="list-disc list-inside ml-4 space-y-1">
-              <li><strong>Criação de prompts avançados</strong> para modelos de linguagem e geração de conteúdo.</li>
-              <li><strong>Programação assistida por IA</strong> para otimização de código e desenvolvimento acelerado.</li>
-              <li><strong>Resolução de problemas complexos</strong> com agilidade, alta segurança e escalabilidade utilizando IA.</li>
-              <li><strong>Análise preditiva e detecção de anomalias</strong> com algoritmos baseados em IA.</li>
-            </ul>
-            <h4 className="font-semibold text-gray-200">Cases de Sucesso (com aplicação de IA):</h4> {/* Adjusted text color for dark theme */}
-            <ul className="list-disc list-inside ml-4 space-y-1">
-              <li>
-                <strong>Otimização de Detecção de Anomalias (Browser Exceptions):</strong> Utilizei IA para aprimorar algoritmos de detecção de padrões em logs de Browser Exceptions, identificando anomalias que estavam há anos impactando a performance e a estabilidade dos caixas eletrônicos. Isso permitiu uma resposta proativa e a eliminação de perdas financeiras.
-              </li>
-              <li>
-                <strong>Predição de Gargalos de Performance:</strong> Implementei rotinas de IA para analisar o comportamento de clientes e servidores, prevendo potenciais gargalos de performance e espaço antes que causassem interrupções. Isso resultou em manutenções preditivas e maior uptime.
-              </li>
-              <li>
-                <strong>Geração de Scripts de Automação Complexos:</strong> Com o auxílio de IA, acelerei a criação de scripts Python e PowerShell para automação de tarefas de manutenção e otimização, garantindo alta segurança e escalabilidade nas soluções.
-              </li>
-            </ul>
-          </div>
-        ),
-      },
-      {
-        title: 'Análise, Sustentação & Treinamento',
-        content: (
-          <div className="text-lg text-gray-300 space-y-4"> {/* Adjusted text color for dark theme */}
-            <p>
-              Minha atuação como Analista de TI II na Saquers.Tech me proporcionou uma visão 360º da operação, focando na garantia da disponibilidade dos sistemas e na capacitação de equipes.
-            </p>
-            <h4 className="font-semibold text-gray-200">Habilidades Chave:</h4> {/* Adjusted text color for dark theme */}
-            <ul className="list-disc list-inside ml-4 space-y-1">
-              <li><strong>Análise e Sustentação de Sistemas</strong></li>
-              <li><strong>Gerenciamento de Incidentes e Resolução de Problemas (Troubleshooting)</strong></li>
-              <li><strong>Suporte Especializado em Situações Fora da Curva</strong></li>
-              <li><strong>Treinamento de Usuários e Equipes Operacionais/Manutenção</strong></li>
-              <li><strong>Comunicação Eficaz e Impacto Multifacetado</strong> (Engenheiros, Desenvolvedores, Comercial, Operacional, CEO e Diretores)</li>
-            </ul>
-            <h4 className="font-semibold text-gray-200">Cases de Sucesso:</h4> {/* Adjusted text color for dark theme */}
-            <ul className="list-disc list-inside ml-4 space-y-1">
-              <li>
-                <strong>Força-Tarefa de Resolução de Bugs Críticos:</strong> Liderança na orquestração de uma força-tarefa para resolver bugs que causavam perdas financeiras há mais de 3 anos, incluindo a categorização, acompanhamento da resolução e criação de monitoramento contínuo.
-              </li>
-              <li>
-                <strong>Capacitação de Equipes:</strong> Treinei equipes operacionais e de manutenção de servidores e clientes, elevando o nível técnico e a capacidade de resposta da empresa, resultando em maior autonomia e eficiência.
-              </li>
-            </ul>
-          </div>
-        ),
-      },
-      {
-        title: 'Dados, Observabilidade & Business Intelligence',
-        content: (
-          <div className="text-lg text-gray-300 space-y-4"> {/* Adjusted text color for dark theme */}
-            <p>
-              Transformo dados brutos em insights estratégicos, utilizando ferramentas de BI e observabilidade para otimizar a tomada de decisão e a performance dos sistemas.
-            </p>
-            <h4 className="font-semibold text-gray-200">Ferramentas & Técnicas:</h4> {/* Adjusted text color for dark theme */}
-            <ul className="list-disc list-inside ml-4 space-y-1">
-              <li><strong>Power BI</strong></li>
-              <li><strong>SQL</strong> (Oracle SQL, MySQL, SQL Server, PostgreSQL, PL/SQL)</li>
-              <li><strong>Elastic Kibana</strong> (Observabilidade e Análise de Logs)</li>
-              <li><strong>Zabbix</strong> (Monitoramento de Infraestrutura)</li>
-              <li><strong>Modelagem e Visualização de Dados</strong></li>
-              <li><strong>Análise Decisiva ao Negócio</strong></li>
-            </ul>
-            <h4 className="font-semibold text-gray-200">Cases de Sucesso:</h4> {/* Adjusted text color for dark theme */}
-            <ul className="list-disc list-inside ml-4 space-y-1">
-              <li>
-                <strong>Análises Decisivas de Negócio:</strong> Realizei diversas análises que impactaram diretamente as decisões estratégicas da empresa, fornecendo dados claros e acionáveis para a proposição de novos produtos e modelos de caixa eletrônico.
-              </li>
-              <li>
-                <strong>Monitoramento Contínuo de Bugs:</strong> Implementação de dashboards e alertas em ferramentas de observabilidade para garantir que bugs resolvidos não reincidissem, protegendo a integridade financeira e operacional.
-              </li>
-            </ul>
-          </div>
-        ),
-      },
-      {
-        title: 'Infraestrutura, Redes & Servidores',
-        content: (
-          <div className="text-lg text-gray-300 space-y-4"> {/* Adjusted text color for dark theme */}
-            <p>
-              Minha expertise abrange a gestão e otimização de infraestruturas de TI, garantindo a estabilidade e a performance dos ambientes tecnológicos.
-            </p>
-            <h4 className="font-semibold text-gray-200">Conhecimentos:</h4> {/* Adjusted text color for dark theme */}
-            <ul className="list-disc list-inside ml-4 space-y-1">
-              <li><strong>Administração de Servidores</strong> (Web, E-mail, Proxy)</li>
-              <li><strong>Sistemas Operacionais:</strong> Windows, Linux, Mac OS, UNIX</li>
-              <li><strong>Noções de Redes e Conectividade</strong></li>
-              <li><strong>Otimização de Espaço e Performance</strong></li>
-            </ul>
-            <h4 className="font-semibold text-gray-200">Cases de Sucesso:</h4> {/* Adjusted text color for dark theme */}
-            <ul className="list-disc list-inside ml-4 space-y-1">
-              <li>
-                <strong>Automação de Manutenção de Servidores:</strong> Criei paliativos e automações para resolver problemas crônicos de espaço e performance em clientes e servidores da empresa, reduzindo a necessidade de intervenção manual e melhorando a agilidade.
-              </li>
-              <li>
-                <strong>Melhoria Operacional de Tecnologia:</strong> Contribuí ativamente para a melhoria operacional relacionada à tecnologia, otimizando a infraestrutura para suportar novas demandas e reduzir gargalos.
-              </li>
-            </ul>
-          </div>
-        ),
-      },
-      {
-        title: 'Desenvolvimento & Automação',
-        content: (
-          <div className="text-lg text-gray-300 space-y-4"> {/* Adjusted text color for dark theme */}
-            <p>
-              Utilizo linguagens de programação para desenvolver soluções eficientes e automatizar tarefas, liberando tempo e recursos para iniciativas mais estratégicas.
-            </p>
-            <h4 className="font-semibold text-gray-200">Linguagens & Ferramentas:</h4> {/* Adjusted text color for dark theme */}
-            <ul className="list-disc list-inside ml-4 space-y-1">
-              <li><strong>Python, PowerShell</strong> (foco em automação)</li>
-              <li><strong>PHP, JavaScript, Java, C#, C++, C, C+, VB.Net</strong></li>
-              <li><strong>HTML, CSS</strong></li>
-              <li><strong>Salesforce, Jira</strong> (Ferramentas de Gestão de Projetos e CRM)</li>
-            </ul>
-            <h4 className="font-semibo
