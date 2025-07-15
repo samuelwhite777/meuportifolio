@@ -49,46 +49,14 @@
          It is the mounting point for ReactDOM. -->
     <div id="root"></div>
 
-    <!-- Links para as bibliotecas React e ReactDOM via CDN.
-         React é a biblioteca principal para construir interfaces de usuário.
-         ReactDOM é a biblioteca que lida com a interação entre o React e o DOM (Document Object Model) do navegador. -->
-    <!-- Links to React and ReactDOM libraries via CDN.
-         React is the core library for building user interfaces.
-         ReactDOM is the library that handles the interaction between React and the browser's DOM (Document Object Model). -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-
-    <!-- Este script é o coração da sua aplicação React.
-         'type="module"': Permite o uso de módulos ES6 (import/export), o que é padrão para React. -->
-    <!-- This script is the heart of your React application.
-         'type="module"': Allows the use of ES6 modules (import/export), which is standard for React. -->
-    <script type="module">
-        // Importa o componente principal da sua aplicação (App.js).
-        // ATENÇÃO: O caminho foi ajustado porque App.js agora está na mesma pasta que index.html.
-        //
-        // Imports the main component of your application (App.js).
-        // ATTENTION: The path has been adjusted because App.js is now in the same folder as index.html.
-        import App from './App.js'; // App.js agora está na raiz do projeto.
-
-        // Obtém a referência ao elemento HTML onde o aplicativo React será montado.
-        //
-        // Gets the reference to the HTML element where the React application will be mounted.
-        const container = document.getElementById('root');
-
-        // Cria uma raiz React para o seu aplicativo.
-        // A partir do React 18, usa-se 'createRoot' para novas aplicações para melhor performance e recursos.
-        //
-        // Creates a React root for your application.
-        // Starting from React 18, 'createRoot' is used for new applications for better performance and features.
-        const root = ReactDOM.createRoot(container);
-
-        // Renderiza o componente <App /> dentro do elemento "root".
-        // Isso faz com que o React comece a gerenciar a interface do usuário a partir deste ponto.
-        //
-        // Renders the <App /> component inside the "root" element.
-        // This makes React start managing the user interface from this point.
-        root.render(React.createElement(App));
-    </script>
+    <!-- ATENÇÃO: Os scripts de importação do React, ReactDOM e App.js foram removidos daqui.
+         O 'react-scripts' (do Create React App) irá injetar os bundles JavaScript compilados
+         automaticamente durante o processo de build para produção.
+         O ponto de entrada JavaScript agora é 'src/index.js'. -->
+    <!-- ATTENTION: The React, ReactDOM, and App.js import scripts have been removed from here.
+         'react-scripts' (from Create React App) will automatically inject the compiled JavaScript bundles
+         during the production build process.
+         The JavaScript entry point is now 'src/index.js'. -->
 </body>
 </html>
 
