@@ -239,4 +239,960 @@ const App = () => {
         en: "My Areas of Expertise",
         ru: "Мои области экспертизы",
         zh: "我的专业领域",
-       
+        ko: "내 전문 분야",
+        ja: "私の専門分野",
+      },
+      buttons: {
+        github: {
+          pt: "Ver no GitHub",
+          en: "View on GitHub",
+          ru: "Посмотреть на GitHub",
+          zh: "在 GitHub 上查看",
+          ko: "GitHub에서 보기",
+          ja: "GitHubで見る",
+        },
+        documentation: {
+          pt: "Ver Documentação",
+          en: "View Documentation",
+          ru: "Посмотреть документацию",
+          zh: "查看文档",
+          ko: "문서 보기",
+          ja: "ドキュメントを見る",
+        },
+      }
+    },
+    contact: {
+      introParagraph: {
+        pt: "Interessado em como minhas habilidades e experiência podem agregar valor ao seu projeto ou equipe? Sinta-se à vontade para entrar em contato!",
+        en: "Interested in how my skills and experience can add value to your project or team? Feel free to get in touch!",
+        ru: "Заинтересованы в том, как мои навыки и опыт могут принести пользу вашему проекту или команде? Не стесняйтесь обращаться!",
+        zh: "对我的技能和经验如何为您的项目或团队增值感兴趣？请随时与我联系！",
+        ko: "저의 기술과 경험이 귀하의 프로젝트나 팀에 어떻게 가치를 더할 수 있는지 궁금하십니까? 언제든지 연락주세요!",
+        ja: "私のスキルと経験があなたのプロジェクトやチームにどのように価値をもたらすか興味がありますか？お気軽にお問い合わせください！",
+      },
+      emailLabel: {
+        pt: "Email:",
+        en: "Email:",
+        ru: "Электронная почта:",
+        zh: "电子邮件：",
+        ko: "이메일:",
+        ja: "メール：",
+      },
+      phoneLabel: {
+        pt: "Telefone:",
+        en: "Phone:",
+        ru: "Телефон:",
+        zh: "电话：",
+        ko: "전화:",
+        ja: "電話：",
+      },
+      locationLabel: {
+        pt: "Localização:",
+        en: "Location:",
+        ru: "Местоположение:",
+        zh: "地点：",
+        ko: "위치:",
+        ja: "場所：",
+      }
+    },
+    footer: {
+      copyright: {
+        pt: "Todos os direitos reservados.",
+        en: "All rights reserved.",
+        ru: "Все права защищены.",
+        zh: "版权所有。",
+        ko: "모든 권리 보유.",
+        ja: "全著作権所有。",
+      }
+    }
+  };
+
+
+  // Usa o hook 'useEffect' para lidar com efeitos colaterais.
+  // Neste caso, ele rola a janela para o topo (0, 0) sempre que a 'activeSection' muda.
+  // Isso melhora a experiência do usuário, garantindo que a nova seção comece visível.
+  // O array de dependências '[activeSection]' significa que este efeito roda toda vez que 'activeSection' mudar.
+  //
+  // Uses the 'useEffect' hook to handle side effects.
+  // In this case, it scrolls the window to the top (0, 0) whenever 'activeSection' changes.
+  // This improves user experience by ensuring the new section starts visible.
+  // The dependency array '[activeSection]' means this effect runs every time 'activeSection' changes.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activeSection]); // Dependência: o efeito é re-executado quando activeSection muda.
+
+  // Componente da Barra de Navegação.
+  // É o menu fixo no topo da página que permite navegar entre as seções.
+  //
+  // Navigation Bar Component.
+  // It's the fixed menu at the top of the page that allows navigating between sections.
+  const NavBar = () => (
+    <nav className="bg-gradient-to-r from-blue-600 to-indigo-700 p-4 shadow-lg fixed w-full z-10 top-0 rounded-b-lg">
+      {/* 'bg-gradient-to-r from-blue-600 to-indigo-700': Define um gradiente de cor no fundo, da esquerda para a direita.
+          'p-4': Adiciona preenchimento (padding) de 16px em todos os lados.
+          'shadow-lg': Adiciona uma sombra grande para dar profundidade.
+          'fixed w-full z-10 top-0': Torna a barra de navegação fixa no topo da tela, ocupando 100% da largura,
+                                     e com um alto z-index para ficar acima de outros elementos.
+          'rounded-b-lg': Arredonda os cantos inferiores. */}
+      {/* 'bg-gradient-to-r from-blue-600 to-indigo-700': Defines a color gradient background, from left to right.
+          'p-4': Adds 16px padding on all sides.
+          'shadow-lg': Adds a large shadow for depth.
+          'fixed w-full z-10 top-0': Makes the navigation bar fixed at the top of the screen, taking 100% width,
+                                     and with a high z-index to stay above other elements.
+          'rounded-b-lg': Rounds the bottom corners. */}
+      <div className="container mx-auto flex justify-between items-center flex-wrap">
+        {/* 'container mx-auto': Centraliza o conteúdo da barra de navegação e limita sua largura.
+            'flex justify-between items-center flex-wrap': Usa flexbox para alinhar os itens:
+                                                            - 'justify-between': Espaça os itens igualmente.
+                                                            - 'items-center': Centraliza verticalmente.
+                                                            - 'flex-wrap': Permite que os itens quebrem a linha em telas menores. */}
+        {/* 'container mx-auto': Centers the navigation bar content and limits its width.
+            'flex justify-between items-center flex-wrap': Uses flexbox to align items:
+                                                            - 'justify-between': Spaces items equally.
+                                                            - 'items-center': Vertically centers items.
+                                                            - 'flex-wrap': Allows items to wrap to the next line on smaller screens. */}
+        
+        {/* Substitui o texto "Samuel Pedroso" por um símbolo SVG personalizado com as iniciais "SP".
+            O SVG é um gráfico vetorial, escalável sem perda de qualidade.
+            'text-white cursor-pointer': Define a cor do texto/SVG como branco e muda o cursor ao passar por cima.
+            'onClick={() => setActiveSection('home')}': Ao clicar, define a seção ativa como 'home', levando o usuário para o início. */}
+        {/* Replaces "Samuel Pedroso" text with a custom SVG symbol for "SP".
+            SVG is a vector graphic, scalable without quality loss.
+            'text-white cursor-pointer': Sets the text/SVG color to white and changes the cursor on hover.
+            'onClick={() => setActiveSection('home')}': On click, sets the active section to 'home', taking the user to the start. */}
+        <div className="text-white cursor-pointer flex items-center" onClick={() => setActiveSection('home')}>
+          {/* O elemento SVG define o ícone.
+              'width="40" height="40"': Define o tamanho do SVG.
+              'viewBox="0 0 40 40"': Define a área de visualização interna do SVG.
+              'fill="none"': Não preenche o caminho por padrão.
+              'xmlns="http://www.w3.org/2000/svg"': Declara o namespace SVG.
+              'className="inline-block mr-2"': Torna o SVG um bloco inline e adiciona margem à direita. */}
+          {/* The SVG element defines the icon.
+              'width="40" height="40"': Sets the SVG size.
+              'viewBox="0 0 40 40"': Defines the internal viewing area of the SVG.
+              'fill="none"': Does not fill the path by default.
+              'xmlns="http://www.w3.org/2000/svg"': Declares the SVG namespace.
+              'className="inline-block mr-2"': Makes the SVG an inline block and adds right margin. */}
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="inline-block mr-2">
+            {/* Um retângulo que serve como fundo para o símbolo.
+                'rx="10"': Arredonda os cantos do retângulo.
+                'fill="currentColor"': Preenche com a cor do texto pai (branco, definida no div pai). */}
+            {/* A rectangle serving as the background for the symbol.
+                'rx="10"': Rounds the rectangle corners.
+                'fill="currentColor"': Fills with the parent text color (white, defined in the parent div). */}
+            <rect width="40" height="40" rx="10" fill="currentColor"/> {/* Background for the symbol */}
+            {/* Caminho SVG para a letra 'S' estilizada. */}
+            {/* SVG path for the stylized 'S' letter. */}
+            <path d="M12 15H20C22.2091 15 24 16.7909 24 19C24 21.2091 22.2091 23 20 23H16V25H24V27H16C13.7909 27 12 25.2091 12 23V15ZM16 17V21H20C20.5523 21 21 20.5523 21 20C21 19.4477 20.5523 19 20 19H16V17Z" fill="#FFFFFF"/> {/* Stylized 'S' */}
+            {/* Caminhos SVG para a letra 'P' estilizada. */}
+            {/* SVG paths for the stylized 'P' letter. */}
+            <path d="M28 15H32V27H28V15Z" fill="#FFFFFF"/> {/* Part of 'P' - vertical bar */}
+            <path d="M28 15H32V17H28V15Z" fill="#FFFFFF"/> {/* Part of 'P' - top horizontal bar */}
+            <path d="M28 15C30.2091 15 32 16.7909 32 19V21C32 23.2091 30.2091 25 28 25H24V15H28Z" fill="#FFFFFF"/> {/* Part of 'P' - curved top */}
+          </svg>
+          {/* Mantém o nome "Samuel Pedroso" ao lado do símbolo para maior clareza, especialmente para quem não conhece o logo.
+              'text-2xl font-bold tracking-wider': Define o tamanho da fonte, peso e espaçamento entre letras. */}
+          {/* Keeps the name "Samuel Pedroso" next to the symbol for clarity, especially for those unfamiliar with the logo.
+              'text-2xl font-bold tracking-wider': Sets font size, weight, and letter spacing. */}
+          <span className="text-2xl font-bold tracking-wider">Samuel Pedroso</span>
+        </div>
+        {/* Div que contém os botões de navegação e o seletor de idioma.
+            'flex items-center space-x-6 text-lg': Usa flexbox para alinhar os botões e o seletor horizontalmente,
+                                                   com espaçamento e tamanho de fonte definidos. */}
+        {/* Div containing the navigation buttons and language selector.
+            'flex items-center space-x-6 text-lg': Uses flexbox to align buttons and selector horizontally,
+                                                   with defined spacing and font size. */}
+        <div className="flex items-center space-x-6 text-lg">
+          {/* Componentes individuais para cada item da navegação.
+              Cada um recebe a 'section' (ID da seção para navegar) e o 'label' (texto visível). */}
+          {/* Individual components for each navigation item.
+              Each receives the 'section' (ID of the section to navigate to) and the 'label' (visible text). */}
+          <NavItem section="home" label="Início" />
+          <NavItem section="about" label="Sobre Mim" />
+          <NavItem section="experience" label="Experiência" />
+          <NavItem section="projects-expertise" label="Projetos & Expertise" />
+          <NavItem section="contact" label="Contato" />
+
+          {/* Seletor de Idioma.
+              'onChange={(e) => setCurrentLanguage(e.target.value)}': Atualiza o estado 'currentLanguage'
+                                                                    com o valor selecionado do dropdown.
+              'value={currentLanguage}': Garante que o dropdown reflita o idioma atual do estado.
+              'bg-blue-700 text-white rounded-md px-2 py-1 text-base': Estilo para o dropdown. */}
+          {/* Language Selector.
+              'onChange={(e) => setCurrentLanguage(e.target.value)}': Updates the 'currentLanguage' state
+                                                                    with the selected dropdown value.
+              'value={currentLanguage}': Ensures the dropdown reflects the current language from the state.
+              'bg-blue-700 text-white rounded-md px-2 py-1 text-base': Style for the dropdown. */}
+          <select
+            onChange={(e) => setCurrentLanguage(e.target.value)}
+            value={currentLanguage}
+            className="bg-blue-700 text-white rounded-md px-2 py-1 text-base focus:outline-none focus:ring-2 focus:ring-blue-300"
+          >
+            <option value="pt">Português</option>
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+            <option value="zh">中文</option>
+            <option value="ko">한국어</option>
+            <option value="ja">日本語</option>
+          </select>
+        </div>
+      </div>
+    </nav>
+  );
+
+  // Componente de Item de Navegação.
+  // Representa um único botão na barra de navegação.
+  //
+  // Navigation Item Component.
+  // Represents a single button in the navigation bar.
+  const NavItem = ({ section, label }) => (
+    <button
+      // 'onClick={() => setActiveSection(section)}': Ao clicar, atualiza o estado 'activeSection' para a seção correspondente.
+      //
+      // 'onClick={() => setActiveSection(section)}': On click, updates the 'activeSection' state to the corresponding section.
+      onClick={() => setActiveSection(section)}
+      className={`text-white hover:text-blue-200 transition duration-300 ease-in-out px-3 py-2 rounded-md ${
+        // Usa interpolação de string para aplicar classes condicionalmente.
+        // Se a seção atual for a 'activeSection', aplica 'bg-blue-700 font-semibold' para destacá-la.
+        // 'text-white': Cor do texto branca.
+        // 'hover:text-blue-200': Cor do texto azul claro ao passar o mouse.
+        // 'transition duration-300 ease-in-out': Adiciona uma transição suave para as mudanças de estilo.
+        // 'px-3 py-2': Preenchimento horizontal e vertical.
+        // 'rounded-md': Cantos levemente arredondados.
+        //
+        // Uses string interpolation to apply classes conditionally.
+        // If the current section is the 'activeSection', applies 'bg-blue-700 font-semibold' to highlight it.
+        // 'text-white': White text color.
+        // 'hover:text-blue-200': Light blue text color on hover.
+        // 'transition duration-300 ease-in-out': Adds a smooth transition for style changes.
+        // 'px-3 py-2': Horizontal and vertical padding.
+        // 'rounded-md': Slightly rounded corners.
+        activeSection === section ? 'bg-blue-700 font-semibold' : ''
+      }`}
+    >
+      {label}
+    </button>
+  );
+
+  // Componente Wrapper de Seção.
+  // Usado para garantir um estilo consistente em todas as seções do portfólio.
+  // Recebe um 'id' (para navegação), um 'title' e 'children' (o conteúdo da seção).
+  //
+  // Section Wrapper Component.
+  // Used to ensure consistent styling across all portfolio sections.
+  // Receives an 'id' (for navigation), a 'title', and 'children' (the section's content).
+  const Section = ({ id, title, children }) => (
+    <section id={id} className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 flex flex-col justify-center items-center text-center">
+      {/* 'min-h-screen': Garante que a seção tenha pelo menos a altura da tela.
+          'py-20': Preenchimento vertical grande.
+          'px-4 sm:px-6 lg:px-8': Preenchimento horizontal responsivo (muda em diferentes tamanhos de tela).
+          'bg-gray-900': Fundo cinza escuro para o tema escuro.
+          'flex flex-col justify-center items-center text-center': Usa flexbox para centralizar o conteúdo vertical e horizontalmente, e alinha o texto ao centro. */}
+      {/* 'min-h-screen': Ensures the section is at least the height of the screen.
+          'py-20': Large vertical padding.
+          'px-4 sm:px-6 lg:px-8': Responsive horizontal padding (changes at different screen sizes).
+          'bg-gray-900': Dark gray background for the dark theme.
+          'flex flex-col justify-center items-center text-center': Uses flexbox to center content vertically and horizontally, and aligns text to the center. */}
+      
+      <div className="max-w-4xl w-full bg-gray-800 p-8 rounded-xl shadow-2xl transform transition-all duration-500 hover:scale-[1.01] border-t-4 border-blue-600">
+        {/* 'max-w-4xl': Limita a largura máxima do conteúdo.
+            'w-full': Ocupa 100% da largura disponível até o limite máximo.
+            'bg-gray-800': Fundo cinza um pouco mais claro que o fundo da seção.
+            'p-8': Preenchimento interno.
+            'rounded-xl': Cantos bem arredondados.
+            'shadow-2xl': Sombra grande.
+            'transform transition-all duration-500 hover:scale-[1.01]': Adiciona uma leve animação de escala ao passar o mouse.
+            'border-t-4 border-blue-600': Uma borda azul na parte superior para destaque. */}
+        {/* 'max-w-4xl': Limits the maximum content width.
+            'w-full': Takes 100% of available width up to the maximum limit.
+            'bg-gray-800': A slightly lighter gray background than the section background.
+            'p-8': Inner padding.
+            'rounded-xl': Well-rounded corners.
+            'shadow-2xl': Large shadow.
+            'transform transition-all duration-500 hover:scale-[1.01]': Adds a slight scale animation on hover.
+            'border-t-4 border-blue-600': A blue border at the top for emphasis. */}
+        
+        <h2 className="text-4xl font-extrabold text-white mb-8 pb-4 border-b-2 border-blue-500">{title}</h2>
+        {/* 'text-4xl font-extrabold': Tamanho e peso da fonte para o título.
+            'text-white': Cor do texto branca.
+            'mb-8 pb-4': Margem inferior e preenchimento inferior.
+            'border-b-2 border-blue-500': Uma linha azul na parte inferior do título. */}
+        {/* 'text-4xl font-extrabold': Font size and weight for the title.
+            'text-white': White text color.
+            'mb-8 pb-4': Bottom margin and bottom padding.
+            'border-b-2 border-blue-500': A blue line at the bottom of the title. */}
+        {children}
+      </div>
+    </section>
+  );
+
+  // Componente da Seção Inicial (Hero Section).
+  // É a primeira coisa que o usuário vê ao acessar o portfólio.
+  //
+  // Hero Section Component.
+  // It's the first thing the user sees when accessing the portfolio.
+  const HeroSection = () => (
+    // O título da seção agora é dinâmico, baseado no idioma selecionado.
+    // Se a tradução para o idioma atual não existir, ele volta para o português ('pt').
+    //
+    // The section title is now dynamic, based on the selected language.
+    // If the translation for the current language doesn't exist, it defaults to Portuguese ('pt').
+    <Section id="home" title={sectionTitles.home[currentLanguage] || sectionTitles.home.pt}>
+      {/* Parágrafos de introdução com cores de texto ajustadas para o tema escuro.
+          Os textos dos parágrafos são dinâmicos, usando 'contentTranslations'. */}
+      {/* Introduction paragraphs with text colors adjusted for the dark theme.
+          The paragraph texts are dynamic, using 'contentTranslations'. */}
+      <p className="text-xl text-gray-300 mb-6 leading-relaxed">
+        {contentTranslations.hero.paragraph1[currentLanguage] || contentTranslations.hero.paragraph1.pt}
+      </p>
+      <p className="text-lg text-gray-400">
+        {contentTranslations.hero.paragraph2[currentLanguage] || contentTranslations.hero.paragraph2.pt}
+      </p>
+      <button
+        // Botão para navegar para a seção "Sobre Mim".
+        // O texto do botão também é dinâmico.
+        //
+        // Button to navigate to the "About Me" section.
+        // The button text is also dynamic.
+        onClick={() => setActiveSection('about')}
+        className="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1"
+      >
+        {contentTranslations.hero.button[currentLanguage] || contentTranslations.hero.button.pt}
+      </button>
+    </Section>
+  );
+
+  // Componente da Seção "Sobre Mim".
+  // Detalha a trajetória, filosofia e projetos pessoais de Samuel.
+  //
+  // About Me Section Component.
+  // Details Samuel's background, philosophy, and personal projects.
+  const AboutSection = () => (
+    // O título da seção agora é dinâmico, baseado no idioma selecionado.
+    //
+    // The section title is now dynamic, based on the selected language.
+    <Section id="about" title={sectionTitles.about[currentLanguage] || sectionTitles.about.pt}>
+      {/* Parágrafos com informações sobre a formação e abordagem profissional.
+          As cores do texto são ajustadas para o tema escuro.
+          Os textos dos parágrafos são dinâmicos, usando 'contentTranslations'. */}
+      {/* Paragraphs with information about professional background and approach.
+          Text colors are adjusted for the dark theme.
+          The paragraph texts are dynamic, using 'contentTranslations'. */}
+      <p className="text-lg text-gray-300 mb-6 leading-relaxed">
+        {contentTranslations.about.paragraph1[currentLanguage] || contentTranslations.about.paragraph1.pt}
+      </p>
+      <p className="text-lg text-gray-300 mb-6 leading-relaxed">
+        {contentTranslations.about.paragraph2[currentLanguage] || contentTranslations.about.paragraph2.pt}
+      </p>
+      <p className="text-lg text-gray-300 mb-6 leading-relaxed font-semibold text-blue-400">
+        {contentTranslations.about.paragraph3[currentLanguage] || contentTranslations.about.paragraph3.pt}
+      </p>
+      <p className="text-lg text-gray-300 mb-6 leading-relaxed">
+        {contentTranslations.about.paragraph4[currentLanguage] || contentTranslations.about.paragraph4.pt}
+      </p>
+      <ul className="list-disc list-inside text-lg text-gray-300 space-y-2 mb-6 text-left mx-auto max-w-2xl">
+        <li>
+          {/* O nome do projeto agora é dinâmico, buscando do objeto 'personalProjectsData' */}
+          {/* The project name is now dynamic, fetched from the 'personalProjectsData' object */}
+          <strong>{personalProjectsData[0].name[currentLanguage] || personalProjectsData[0].name.pt}:</strong> {personalProjectsData[0].description[currentLanguage] || personalProjectsData[0].description.pt}
+        </li>
+        <li>
+          {/* O nome do projeto agora é dinâmico, buscando do objeto 'personalProjectsData' */}
+          {/* The project name is now dynamic, fetched from the 'personalProjectsData' object */}
+          <strong>{personalProjectsData[1].name[currentLanguage] || personalProjectsData[1].name.pt}:</strong> {personalProjectsData[1].description[currentLanguage] || personalProjectsData[1].description.pt}
+        </li>
+      </ul>
+      <p className="text-lg text-gray-300 leading-relaxed">
+        {contentTranslations.about.paragraph5[currentLanguage] || contentTranslations.about.paragraph5.pt}
+      </p>
+    </Section>
+  );
+
+  // Componente da Seção de Experiência Profissional.
+  // Detalha a experiência de Samuel na Saquers.Tech.
+  //
+  // Professional Experience Section Component.
+  // Details Samuel's experience at Saquers.Tech.
+  const ExperienceSection = () => (
+    // O título da seção agora é dinâmico, baseado no idioma selecionado.
+    //
+    // The section title is now dynamic, based on the selected language.
+    <Section id="experience" title={sectionTitles.experience[currentLanguage] || sectionTitles.experience.pt}>
+      <div className="text-left w-full">
+        {/* Título da posição e lista de responsabilidades/conquistas.
+            As cores do texto são ajustadas para o tema escuro e palavras em negrito.
+            O título da posição agora é dinâmico. */}
+        {/* Position title and list of responsibilities/achievements.
+            Text colors are adjusted for the dark theme and bolded words.
+            The position title is now dynamic. */}
+        <h3 className="text-2xl font-semibold text-gray-200 mb-4">{contentTranslations.experience.title[currentLanguage] || contentTranslations.experience.title.pt}</h3>
+        <ul className="list-disc list-inside text-lg text-gray-300 space-y-3">
+          <li>
+            <strong>{contentTranslations.experience.listItems.item1[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.experience.listItems.item1[currentLanguage]?.split(':')[1]}
+          </li>
+          <li>
+            <strong>{contentTranslations.experience.listItems.item2[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.experience.listItems.item2[currentLanguage]?.split(':')[1]}
+          </li>
+          <li>
+            <strong>{contentTranslations.experience.listItems.item3[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.experience.listItems.item3[currentLanguage]?.split(':')[1]}
+          </li>
+          <li>
+            <strong>{contentTranslations.experience.listItems.item4[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.experience.listItems.item4[currentLanguage]?.split(':')[1]}
+          </li>
+          <li>
+            <strong>{contentTranslations.experience.listItems.item5[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.experience.listItems.item5[currentLanguage]?.split(':')[1]}
+          </li>
+          <li>
+            <strong>{contentTranslations.experience.listItems.item6[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.experience.listItems.item6[currentLanguage]?.split(':')[1]}
+          </li>
+        </ul>
+      </div>
+    </Section>
+  );
+
+  // Componente de Item de Acordeão.
+  // Usado na seção "Projetos & Expertise" para expandir/recolher conteúdo.
+  //
+  // Accordion Item Component.
+  // Used in the "Projects & Expertise" section to expand/collapse content.
+  const AccordionItem = ({ title, content, isOpen, onClick }) => (
+    <div className="border border-gray-700 rounded-lg mb-4 shadow-sm"> {/* Adjusted border color for dark theme */}
+      {/* Botão que controla a expansão/recolhimento do acordeão.
+          'flex justify-between items-center w-full p-5 text-left': Layout flexível para o título e o ícone.
+          'text-xl font-semibold text-gray-100 bg-gray-700 hover:bg-gray-600': Estilo do botão para o tema escuro.
+          'rounded-lg transition-all duration-300': Cantos arredondados e transição suave. */}
+      {/* Button that controls the expansion/collapse of the accordion.
+          'flex justify-between items-center w-full p-5 text-left': Flexible layout for the title and icon.
+          'text-xl font-semibold text-gray-100 bg-gray-700 hover:bg-gray-600': Button style for the dark theme.
+          'rounded-lg transition-all duration-300': Rounded corners and smooth transition. */}
+      <button
+        onClick={onClick} // Chama a função 'onClick' passada como prop para alternar o estado.
+        className="flex justify-between items-center w-full p-5 text-left text-xl font-semibold text-gray-100 bg-gray-700 hover:bg-gray-600 rounded-lg transition-all duration-300"
+      >
+        {title}
+        {/* Ícone de seta que gira quando o acordeão está aberto.
+            'w-6 h-6': Tamanho do ícone.
+            'transform transition-transform duration-300': Permite a animação de rotação.
+            '${isOpen ? 'rotate-180' : ''}': Gira 180 graus se 'isOpen' for verdadeiro. */}
+        {/* Arrow icon that rotates when the accordion is open.
+            'w-6 h-6': Icon size.
+            'transform transition-transform duration-300': Enables rotation animation.
+            '${isOpen ? 'rotate-180' : ''}': Rotates 180 degrees if 'isOpen' is true. */}
+        <svg
+          className={`w-6 h-6 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+      {/* Conteúdo do acordeão, visível apenas se 'isOpen' for verdadeiro.
+          'p-5 border-t border-gray-700 bg-gray-800 text-gray-300': Estilo do conteúdo para o tema escuro. */}
+      {/* Accordion content, visible only if 'isOpen' is true.
+          'p-5 border-t border-gray-700 bg-gray-800 text-gray-300': Content style for the dark theme. */}
+      {isOpen && (
+        <div className="p-5 border-t border-gray-700 bg-gray-800 text-gray-300">
+          {content}
+        </div>
+      )}
+    </div>
+  );
+
+  // Componente da Seção de Projetos e Expertise.
+  // Combina a lista de projetos pessoais com as áreas de expertise em acordeões.
+  //
+  // Projects and Expertise Section Component.
+  // Combines the list of personal projects with expertise areas in accordions.
+  const ProjectsAndExpertiseSection = () => {
+    // Estado para controlar qual item do acordeão está aberto.
+    // 'null' significa que nenhum está aberto inicialmente.
+    //
+    // State to control which accordion item is open.
+    // 'null' means none are open initially.
+    const [openItem, setOpenItem] = useState(null);
+
+    // Função para alternar o estado de um item do acordeão.
+    // Se o item clicado já estiver aberto, ele é fechado (setOpenItem(null)).
+    // Caso contrário, ele é aberto (setOpenItem(index)).
+    //
+    // Function to toggle the state of an accordion item.
+    // If the clicked item is already open, it's closed (setOpenItem(null)).
+    // Otherwise, it's opened (setOpenItem(index)).
+    const toggleItem = (index) => {
+      setOpenItem(openItem === index ? null : index);
+    };
+
+    // Dados para os itens do acordeão na seção de expertise.
+    // Cada objeto contém um 'title' e o 'content' a ser exibido.
+    // O conteúdo é JSX, permitindo estrutura HTML e Tailwind CSS.
+    // Os textos agora incluem traduções para cada idioma.
+    //
+    // Data for the accordion items in the expertise section.
+    // Each object contains a 'title' and the 'content' to be displayed.
+    // The content now includes translations for each language.
+    const expertiseData = [
+      {
+        title: {
+          pt: 'Inteligência Artificial (IA) & Inovação',
+          en: 'Artificial Intelligence (AI) & Innovation',
+          ru: 'Искусственный интеллект (ИИ) и инновации',
+          zh: '人工智能 (AI) 与创新',
+          ko: '인공지능 (AI) 및 혁신',
+          ja: '人工知能 (AI) とイノベーション',
+        },
+        content: (
+          <div className="text-lg text-gray-300 space-y-4"> {/* Adjusted text color for dark theme */}
+            <p>
+              {contentTranslations.expertise.aiInnovation.paragraph1[currentLanguage] || contentTranslations.expertise.aiInnovation.paragraph1.pt}
+            </p>
+            <h4 className="font-semibold text-gray-200">{contentTranslations.expertise.aiInnovation.expertiseTitle[currentLanguage] || contentTranslations.expertise.aiInnovation.expertiseTitle.pt}</h4>
+            <ul className="list-disc list-inside ml-4 space-y-1">
+              <li><strong>{contentTranslations.expertise.aiInnovation.listItems.item1[currentLanguage] || contentTranslations.expertise.aiInnovation.listItems.item1.pt}</strong></li>
+              <li><strong>{contentTranslations.expertise.aiInnovation.listItems.item2[currentLanguage] || contentTranslations.expertise.aiInnovation.listItems.item2.pt}</strong>.</li> {/* Nova habilidade adicionada */}
+              <li><strong>{contentTranslations.expertise.aiInnovation.listItems.item3[currentLanguage] || contentTranslations.expertise.aiInnovation.listItems.item3.pt}</strong></li>
+              <li><strong>{contentTranslations.expertise.aiInnovation.listItems.item4[currentLanguage] || contentTranslations.expertise.aiInnovation.listItems.item4.pt}</strong></li>
+              <li><strong>{contentTranslations.expertise.aiInnovation.listItems.item5[currentLanguage] || contentTranslations.expertise.aiInnovation.listItems.item5.pt}</strong></li>
+            </ul>
+            <h4 className="font-semibold text-gray-200">{contentTranslations.expertise.aiInnovation.casesTitle[currentLanguage] || contentTranslations.expertise.aiInnovation.casesTitle.pt}</h4>
+            <ul className="list-disc list-inside ml-4 space-y-1">
+              <li>
+                <strong>{contentTranslations.expertise.aiInnovation.casesList.case1[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.aiInnovation.casesList.case1[currentLanguage]?.split(':')[1]}
+              </li>
+              <li>
+                <strong>{contentTranslations.expertise.aiInnovation.casesList.case2[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.aiInnovation.casesList.case2[currentLanguage]?.split(':')[1]}
+              </li>
+              <li>
+                <strong>{contentTranslations.expertise.aiInnovation.casesList.case3[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.aiInnovation.casesList.case3[currentLanguage]?.split(':')[1]}
+              </li>
+            </ul>
+          </div>
+        ),
+      },
+      {
+        title: {
+          pt: 'Análise, Sustentação & Treinamento',
+          en: 'Analysis, Support & Training',
+          ru: 'Анализ, поддержка и обучение',
+          zh: '分析、支持与培训',
+          ko: '분석, 지원 및 교육',
+          ja: '分析、サポート、トレーニング',
+        },
+        content: (
+          <div className="text-lg text-gray-300 space-y-4"> {/* Adjusted text color for dark theme */}
+            <p>
+              {contentTranslations.expertise.analysisSupportTraining.paragraph1[currentLanguage] || contentTranslations.expertise.analysisSupportTraining.paragraph1.pt}
+            </p>
+            <h4 className="font-semibold text-gray-200">{contentTranslations.expertise.analysisSupportTraining.keySkillsTitle[currentLanguage] || contentTranslations.expertise.analysisSupportTraining.keySkillsTitle.pt}</h4>
+            <ul className="list-disc list-inside ml-4 space-y-1">
+              <li><strong>{contentTranslations.expertise.analysisSupportTraining.listItems.item1[currentLanguage] || contentTranslations.expertise.analysisSupportTraining.listItems.item1.pt}</strong></li>
+              <li><strong>{contentTranslations.expertise.analysisSupportTraining.listItems.item2[currentLanguage] || contentTranslations.expertise.analysisSupportTraining.listItems.item2.pt}</strong></li>
+              <li><strong>{contentTranslations.expertise.analysisSupportTraining.listItems.item3[currentLanguage] || contentTranslations.expertise.analysisSupportTraining.listItems.item3.pt}</strong></li>
+              <li><strong>{contentTranslations.expertise.analysisSupportTraining.listItems.item4[currentLanguage] || contentTranslations.expertise.analysisSupportTraining.listItems.item4.pt}</strong></li>
+              <li><strong>{contentTranslations.expertise.analysisSupportTraining.listItems.item5[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.analysisSupportTraining.listItems.item5[currentLanguage]?.split(':')[1]}</li>
+            </ul>
+            <h4 className="font-semibold text-gray-200">{contentTranslations.expertise.analysisSupportTraining.casesTitle[currentLanguage] || contentTranslations.expertise.analysisSupportTraining.casesTitle.pt}</h4>
+            <ul className="list-disc list-inside ml-4 space-y-1">
+              <li>
+                <strong>{contentTranslations.expertise.analysisSupportTraining.casesList.case1[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.analysisSupportTraining.casesList.case1[currentLanguage]?.split(':')[1]}
+              </li>
+              <li>
+                <strong>{contentTranslations.expertise.analysisSupportTraining.casesList.case2[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.analysisSupportTraining.casesList.case2[currentLanguage]?.split(':')[1]}
+              </li>
+            </ul>
+          </div>
+        ),
+      },
+      {
+        title: {
+          pt: 'Dados, Observabilidade & Business Intelligence',
+          en: 'Data, Observability & Business Intelligence',
+          ru: 'Данные, наблюдаемость и бизнес-аналитика',
+          zh: '数据、可观察性与商业智能',
+          ko: '데이터, 관찰 가능성 및 비즈니스 인텔리전스',
+          ja: 'データ、可観測性、ビジネスインテリジェンス',
+        },
+        content: (
+          <div className="text-lg text-gray-300 space-y-4"> {/* Adjusted text color for dark theme */}
+            <p>
+              {contentTranslations.expertise.dataObservabilityBI.paragraph1[currentLanguage] || contentTranslations.expertise.dataObservabilityBI.paragraph1.pt}
+            </p>
+            <h4 className="font-semibold text-gray-200">{contentTranslations.expertise.dataObservabilityBI.toolsTechTitle[currentLanguage] || contentTranslations.expertise.dataObservabilityBI.toolsTechTitle.pt}</h4>
+            <ul className="list-disc list-inside ml-4 space-y-1">
+              <li><strong>{contentTranslations.expertise.dataObservabilityBI.listItems.item1[currentLanguage] || contentTranslations.expertise.dataObservabilityBI.listItems.item1.pt}</strong></li>
+              <li><strong>{contentTranslations.expertise.dataObservabilityBI.listItems.item2[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.dataObservabilityBI.listItems.item2[currentLanguage]?.split(':')[1]}</li>
+              <li><strong>{contentTranslations.expertise.dataObservabilityBI.listItems.item3[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.dataObservabilityBI.listItems.item3[currentLanguage]?.split(':')[1]}</li>
+              <li><strong>{contentTranslations.expertise.dataObservabilityBI.listItems.item4[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.dataObservabilityBI.listItems.item4[currentLanguage]?.split(':')[1]}</li>
+              <li><strong>{contentTranslations.expertise.dataObservabilityBI.listItems.item5[currentLanguage] || contentTranslations.expertise.dataObservabilityBI.listItems.item5.pt}</strong></li>
+              <li><strong>{contentTranslations.expertise.dataObservabilityBI.listItems.item6[currentLanguage] || contentTranslations.expertise.dataObservabilityBI.listItems.item6.pt}</strong></li>
+            </ul>
+            <h4 className="font-semibold text-gray-200">{contentTranslations.expertise.dataObservabilityBI.casesTitle[currentLanguage] || contentTranslations.expertise.dataObservabilityBI.casesTitle.pt}</h4>
+            <ul className="list-disc list-inside ml-4 space-y-1">
+              <li>
+                <strong>{contentTranslations.expertise.dataObservabilityBI.casesList.case1[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.dataObservabilityBI.casesList.case1[currentLanguage]?.split(':')[1]}
+              </li>
+              <li>
+                <strong>{contentTranslations.expertise.dataObservabilityBI.casesList.case2[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.dataObservabilityBI.casesList.case2[currentLanguage]?.split(':')[1]}
+              </li>
+            </ul>
+          </div>
+        ),
+      },
+      {
+        title: {
+          pt: 'Infraestrutura, Redes & Servidores',
+          en: 'Infrastructure, Networks & Servers',
+          ru: 'Инфраструктура, сети и серверы',
+          zh: '基础设施、网络与服务器',
+          ko: '인프라, 네트워크 및 서버',
+          ja: 'インフラストラクチャ、ネットワーク、サーバー',
+        },
+        content: (
+          <div className="text-lg text-gray-300 space-y-4"> {/* Adjusted text color for dark theme */}
+            <p>
+              {contentTranslations.expertise.infrastructureNetworksServers.paragraph1[currentLanguage] || contentTranslations.expertise.infrastructureNetworksServers.paragraph1.pt}
+            </p>
+            <h4 className="font-semibold text-gray-200">{contentTranslations.expertise.infrastructureNetworksServers.knowledgeTitle[currentLanguage] || contentTranslations.expertise.infrastructureNetworksServers.knowledgeTitle.pt}</h4>
+            <ul className="list-disc list-inside ml-4 space-y-1">
+              <li><strong>{contentTranslations.expertise.infrastructureNetworksServers.listItems.item1[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.infrastructureNetworksServers.listItems.item1[currentLanguage]?.split(':')[1]}</li>
+              <li><strong>{contentTranslations.expertise.infrastructureNetworksServers.listItems.item2[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.infrastructureNetworksServers.listItems.item2[currentLanguage]?.split(':')[1]}</li>
+              <li><strong>{contentTranslations.expertise.infrastructureNetworksServers.listItems.item3[currentLanguage] || contentTranslations.expertise.infrastructureNetworksServers.listItems.item3.pt}</strong></li>
+              <li><strong>{contentTranslations.expertise.infrastructureNetworksServers.listItems.item4[currentLanguage] || contentTranslations.expertise.infrastructureNetworksServers.listItems.item4.pt}</strong></li>
+            </ul>
+            <h4 className="font-semibold text-gray-200">{contentTranslations.expertise.infrastructureNetworksServers.casesTitle[currentLanguage] || contentTranslations.expertise.infrastructureNetworksServers.casesTitle.pt}</h4>
+            <ul className="list-disc list-inside ml-4 space-y-1">
+              <li>
+                <strong>{contentTranslations.expertise.infrastructureNetworksServers.casesList.case1[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.infrastructureNetworksServers.casesList.case1[currentLanguage]?.split(':')[1]}
+              </li>
+              <li>
+                <strong>{contentTranslations.expertise.infrastructureNetworksServers.casesList.case2[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.infrastructureNetworksServers.casesList.case2[currentLanguage]?.split(':')[1]}
+              </li>
+            </ul>
+          </div>
+        ),
+      },
+      {
+        title: {
+          pt: 'Desenvolvimento & Automação',
+          en: 'Development & Automation',
+          ru: 'Разработка и автоматизация',
+          zh: '开发与自动化',
+          ko: '개발 및 자동화',
+          ja: '開発と自動化',
+        },
+        content: (
+          <div className="text-lg text-gray-300 space-y-4"> {/* Adjusted text color for dark theme */}
+            <p>
+              {contentTranslations.expertise.developmentAutomation.paragraph1[currentLanguage] || contentTranslations.expertise.developmentAutomation.paragraph1.pt}
+            </p>
+            <h4 className="font-semibold text-gray-200">{contentTranslations.expertise.developmentAutomation.languagesToolsTitle[currentLanguage] || contentTranslations.expertise.developmentAutomation.languagesToolsTitle.pt}</h4>
+            <ul className="list-disc list-inside ml-4 space-y-1">
+              <li><strong>{contentTranslations.expertise.developmentAutomation.listItems.item1[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.developmentAutomation.listItems.item1[currentLanguage]?.split(':')[1]}</li>
+              <li><strong>{contentTranslations.expertise.developmentAutomation.listItems.item2[currentLanguage] || contentTranslations.expertise.developmentAutomation.listItems.item2.pt}</strong></li>
+              <li><strong>{contentTranslations.expertise.developmentAutomation.listItems.item3[currentLanguage] || contentTranslations.expertise.developmentAutomation.listItems.item3.pt}</strong></li>
+              <li><strong>{contentTranslations.expertise.developmentAutomation.listItems.item4[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.developmentAutomation.listItems.item4[currentLanguage]?.split(':')[1]}</li>
+            </ul>
+            <h4 className="font-semibold text-gray-200">{contentTranslations.expertise.developmentAutomation.casesTitle[currentLanguage] || contentTranslations.expertise.developmentAutomation.casesTitle.pt}</h4>
+            <ul className="list-disc list-inside ml-4 space-y-1">
+              <li>
+                <strong>{contentTranslations.expertise.developmentAutomation.casesList.case1[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.developmentAutomation.casesList.case1[currentLanguage]?.split(':')[1]}
+              </li>
+              <li>
+                <strong>{contentTranslations.expertise.developmentAutomation.casesList.case2[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.developmentAutomation.casesList.case2[currentLanguage]?.split(':')[1]}
+              </li>
+            </ul>
+          </div>
+        ),
+      },
+      {
+        title: {
+          pt: 'Metodologias & Soft Skills',
+          en: 'Methodologies & Soft Skills',
+          ru: 'Методологии и мягкие навыки',
+          zh: '方法论与软技能',
+          ko: '방법론 및 소프트 스킬',
+          ja: '方法論とソフトスキル',
+        },
+        content: (
+          <div className="text-lg text-gray-300 space-y-4"> {/* Adjusted text color for dark theme */}
+            <p>
+              {contentTranslations.expertise.methodologiesSoftSkills.paragraph1[currentLanguage] || contentTranslations.expertise.methodologiesSoftSkills.paragraph1.pt}
+            </p>
+            <h4 className="font-semibold text-gray-200">{contentTranslations.expertise.methodologiesSoftSkills.skillsTitle[currentLanguage] || contentTranslations.expertise.methodologiesSoftSkills.skillsTitle.pt}</h4>
+            <ul className="list-disc list-inside ml-4 space-y-1">
+              <li><strong>{contentTranslations.expertise.methodologiesSoftSkills.listItems.item1[currentLanguage] || contentTranslations.expertise.methodologiesSoftSkills.listItems.item1.pt}</strong></li>
+              <li><strong>{contentTranslations.expertise.methodologiesSoftSkills.listItems.item2[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.methodologiesSoftSkills.listItems.item2[currentLanguage]?.split(':')[1]}</li>
+              <li><strong>{contentTranslations.expertise.methodologiesSoftSkills.listItems.item3[currentLanguage] || contentTranslations.expertise.methodologiesSoftSkills.listItems.item3.pt}</strong></li>
+              <li><strong>{contentTranslations.expertise.methodologiesSoftSkills.listItems.item4[currentLanguage] || contentTranslations.expertise.methodologiesSoftSkills.listItems.item4.pt}</strong>.</li> {/* Nova habilidade adicionada */}
+              <li><strong>{contentTranslations.expertise.methodologiesSoftSkills.listItems.item5[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.methodologiesSoftSkills.listItems.item5[currentLanguage]?.split(':')[1]}</li>
+              <li><strong>{contentTranslations.expertise.methodologiesSoftSkills.listItems.item6[currentLanguage] || contentTranslations.expertise.methodologiesSoftSkills.listItems.item6.pt}</strong></li>
+            </ul>
+            <h4 className="font-semibold text-gray-200">{contentTranslations.expertise.methodologiesSoftSkills.impactTitle[currentLanguage] || contentTranslations.expertise.methodologiesSoftSkills.impactTitle.pt}</h4>
+            <ul className="list-disc list-inside ml-4 space-y-1">
+              <li>
+                <strong>{contentTranslations.expertise.methodologiesSoftSkills.impactList.item1[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.methodologiesSoftSkills.impactList.item1[currentLanguage]?.split(':')[1]}
+              </li>
+              <li>
+                <strong>{contentTranslations.expertise.methodologiesSoftSkills.impactList.item2[currentLanguage]?.split(':')[0]}:</strong> {contentTranslations.expertise.methodologiesSoftSkills.impactList.item2[currentLanguage]?.split(':')[1]}
+              </li>
+            </ul>
+          </div>
+        ),
+      },
+    ];
+
+    // Dados para os projetos pessoais.
+    // Cada objeto representa um projeto com seu nome, descrição, link para o GitHub e link para documentação.
+    // Os campos 'name' e 'description' agora são objetos com traduções.
+    //
+    // Data for personal projects.
+    // Each object represents a project with its name, description, GitHub link, and documentation link.
+    // The 'name' and 'description' fields are now objects with translations.
+    const personalProjectsData = [
+      {
+        name: {
+          pt: 'ESCAMBO (Criptomoeda)',
+          en: 'ESCAMBO (Cryptocurrency)',
+          ru: 'ЭСКАМБО (Криптовалюта)',
+          zh: 'ESCAMBO（加密货币）',
+          ko: '이스캄보 (암호화폐)',
+          ja: 'エスカンボ（暗号通貨）',
+        },
+        description: {
+          pt: 'Uma criptomoeda idealizada para financiar um DApp de criação de moedas próprias, atreladas a produtos reais. O objetivo é gerar um "escambo digital" futuro, oferecendo uma alternativa para fugir das oscilações de preço de moedas fiduciárias fracas.',
+          en: 'A cryptocurrency designed to finance a DApp for creating proprietary currencies, linked to real products. The goal is to generate a future "digital barter," offering an alternative to escape the price fluctuations of weak fiat currencies.',
+          ru: 'Криптовалюта, предназначенная для финансирования DApp по созданию собственных валют, привязанных к реальным продуктам. Цель состоит в создании будущего «цифрового бартера», предлагающего альтернативу для ухода от колебаний цен слабых фиатных валют.',
+          zh: '一种旨在为创建与实际产品挂钩的专有货币的DApp提供资金的加密货币。目标是创建未来的“数字易货”，提供一种替代方案，以摆脱弱势法定货币的价格波动。',
+          ko: '실제 제품과 연동된 자체 통화를 생성하는 DApp에 자금을 지원하기 위해 고안된 암호화폐입니다. 목표는 약한 법정 화폐의 가격 변동에서 벗어날 대안을 제공하는 미래의 "디지털 물물교환"을 생성하는 것입니다.',
+          ja: '実際の製品に紐付けられた独自の通貨を作成するためのDAppに資金を提供するために考案された暗号通貨です。目的は、将来の「デジタル物々交換」を生成し、弱い法定通貨の価格変動から逃れる代替手段を提供することです。',
+        },
+        githubLink: 'https://github.com/seu-usuario/escambo-crypto', // Substitua com o link real do seu repositório
+        documentationLink: 'https://docs.escambo.com.br', // Substitua com o link real da documentação
+      },
+      {
+        name: {
+          pt: 'VOTEX (Sistema de Votação em Blockchain)',
+          en: 'VOTEX (Blockchain Voting System)',
+          ru: 'VOTEX (Система голосования на блокчейне)',
+          zh: 'VOTEX（区块链投票系统）',
+          ko: 'VOTEX (블록체인 투표 시스템)',
+          ja: 'VOTEX（ブロックチェーン投票システム）',
+        },
+        description: {
+          pt: 'Um sistema de votações seguro, anônimo e auditável, construído sobre o ambiente da blockchain. Utiliza uma certificadora de identidade digital para garantir tanto a segurança quanto o anonimato dos votantes, promovendo transparência e confiança em processos democráticos.',
+          en: 'A secure, anonymous, and auditable voting system built on the blockchain environment. It uses a digital identity certifier to ensure both the security and anonymity of voters, promoting transparency and trust in democratic processes.',
+        ru: 'Безопасная, анонимная и проверяемая система голосования, построенная на блокчейн-среде. Использует сертификатор цифровой идентификации для обеспечения как безопасности, так и анонимности избирателей, способствуя прозрачности и доверию в демократических процессах.',
+        zh: '一个建立在区块链环境上的安全、匿名和可审计的投票系统。它使用数字身份认证器来确保投票者的安全性和匿名性，从而促进民主过程中的透明度和信任。',
+        ko: '블록체인 환경 위에 구축된 안전하고 익명이며 감사 가능한 투표 시스템입니다. 디지털 신원 인증기를 사용하여 유권자의 보안과 익명성을 모두 보장하여 민주적 절차의 투명성과 신뢰를 증진합니다.',
+        ja: 'ブロックチェーン環境上に構築された、安全で匿名かつ監査可能な投票システムです。デジタルID認証局を使用して、投票者のセキュリティと匿名性の両方を確保し、民主的なプロセスにおける透明性と信頼を促進します。',
+        },
+        githubLink: 'https://github.com/seu-usuario/votex-blockchain', // Substitua com o link real do seu repositório
+        documentationLink: 'https://docs.votex.com.br', // Substitua com o link real da documentação
+      },
+    ];
+
+    return (
+      // O título da seção agora é dinâmico, baseado no idioma selecionado.
+      //
+      // The section title is now dynamic, based on the selected language.
+      <Section id="projects-expertise" title={sectionTitles.projectsExpertise[currentLanguage] || sectionTitles.projectsExpertise.pt}>
+        {/* Parágrafo de introdução para a seção de projetos e expertise. */}
+        {/* Introduction paragraph for the projects and expertise section. */}
+        <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+          {contentTranslations.projectsExpertise.introParagraph[currentLanguage] || contentTranslations.projectsExpertise.introParagraph.pt}
+        </p>
+
+        {/* Seção de Meus Projetos Pessoais. */}
+        {/* Personal Projects Section. */}
+        <div className="w-full mb-8">
+          {/* Título da subseção de projetos pessoais. */}
+          {/* Title of the personal projects subsection. */}
+          <h3 className="text-3xl font-bold text-white mb-6 pb-2 border-b-2 border-blue-400 text-center">
+            {contentTranslations.projectsExpertise.personalProjectsTitle[currentLanguage] || contentTranslations.projectsExpertise.personalProjectsTitle.pt}
+          </h3>
+          {/* Grade de layout para exibir os projetos.
+              'grid grid-cols-1 md:grid-cols-2': Em telas pequenas, uma coluna; em telas médias e maiores, duas colunas.
+              'gap-6': Espaçamento entre os itens da grade. */}
+          {/* Grid layout to display projects.
+              'grid grid-cols-1 md:grid-cols-2': On small screens, one column; on medium and larger screens, two columns.
+              'gap-6': Spacing between grid items. */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Mapeia o array 'personalProjectsData' para renderizar um card para cada projeto.
+                'key={index}': Importante para o React identificar cada item na lista. */}
+            {/* Maps the 'personalProjectsData' array to render a card for each project.
+                'key={index}': Important for React to identify each item in the list. */}
+            {personalProjectsData.map((project, index) => (
+              <div key={index} className="bg-gray-700 p-6 rounded-lg shadow-md border border-gray-600 hover:shadow-lg transition-shadow duration-300">
+                {/* 'bg-gray-700': Fundo cinza escuro para o card.
+                    'p-6': Preenchimento interno.
+                    'rounded-lg': Cantos arredondados.
+                    'shadow-md border border-gray-600': Sombra e borda para o card.
+                    'hover:shadow-lg transition-shadow duration-300': Animação de sombra ao passar o mouse. */}
+                {/* 'bg-gray-700': Dark gray background for the card.
+                    'p-6': Inner padding.
+                    'rounded-lg': Rounded corners.
+                    'shadow-md border border-gray-600': Shadow and border for the card.
+                    'hover:shadow-lg transition-shadow duration-300': Shadow animation on hover. */}
+                <h4 className="text-xl font-semibold text-blue-300 mb-2">
+                  {project.name[currentLanguage] || project.name.pt}
+                </h4>
+                <p className="text-gray-300 mb-4">
+                  {project.description[currentLanguage] || project.description.pt}
+                </p>
+                <div className="flex flex-wrap gap-3 mt-4"> {/* Flex container for buttons */}
+                  {/* Renderiza o botão "Ver no GitHub" apenas se 'githubLink' existir. */}
+                  {/* Renders the "View on GitHub" button only if 'githubLink' exists. */}
+                  {project.githubLink && (
+                    <a
+                      href={project.githubLink}
+                      target="_blank" // Abre o link em uma nova aba.
+                      rel="noopener noreferrer" // Medida de segurança para links externos.
+                      className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors duration-300"
+                    >
+                      {contentTranslations.projectsExpertise.buttons.github[currentLanguage] || contentTranslations.projectsExpertise.buttons.github.pt}
+                      {/* Ícone de seta para indicar que é um link externo. */}
+                      {/* Arrow icon to indicate it's an external link. */}
+                      <svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fillRule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L14.586 10l-4.293-4.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clipRule="evenodd"></path>
+                        <path fillRule="evenodd" d="M4.293 15.707a1 1 0 010-1.414L8.586 10 4.293 5.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clipRule="evenodd"></path>
+                      </svg>
+                    </a>
+                  )}
+                  {/* Renderiza o botão "Ver Documentação" apenas se 'documentationLink' existir. */}
+                  {/* Renders the "View Documentation" button only if 'documentationLink' exists. */}
+                  {project.documentationLink && (
+                    <a
+                      href={project.documentationLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700 transition-colors duration-300"
+                    >
+                      {contentTranslations.projectsExpertise.buttons.documentation[currentLanguage] || contentTranslations.projectsExpertise.buttons.documentation.pt}
+                      {/* Ícone de documento. */}
+                      {/* Document icon. */}
+                      <svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                        <path fillRule="evenodd" d="M4 5a2 2 0 012-2h2V1a1 1 0 011-1h2a1 1 0 011 1v2h2a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 2a1 1 0 000 2h6a1 1 0 100-2H7zm-1 4a1 1 0 100 2h8a1 1 0 100-2H6z" clipRule="evenodd"></path>
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Seção de Expertise (Acordeão). */}
+        {/* Expertise Section (Accordion). */}
+        <div className="w-full">
+          {/* Título da subseção de áreas de expertise. */}
+          {/* Title of the expertise areas subsection. */}
+          <h3 className="text-3xl font-bold text-white mb-6 pb-2 border-b-2 border-blue-400 text-center">
+            {contentTranslations.projectsExpertise.expertiseAreasTitle[currentLanguage] || contentTranslations.projectsExpertise.expertiseAreasTitle.pt}
+          </h3>
+          {/* Mapeia o array 'expertiseData' para renderizar os itens do acordeão. */}
+          {/* Maps the 'expertiseData' array to render the accordion items. */}
+          {expertiseData.map((item, index) => (
+            <AccordionItem
+              key={index}
+              title={item.title[currentLanguage] || item.title.pt} // Título do acordeão agora é dinâmico
+              content={item.content}
+              isOpen={openItem === index} // Passa o estado de 'isOpen' para o item do acordeão.
+              onClick={() => toggleItem(index)} // Passa a função para alternar o estado do item.
+            />
+          ))}
+        </div>
+      </Section>
+    );
+  };
+
+  // Componente da Seção de Contato.
+  // Fornece informações de contato para Samuel.
+  //
+  // Contact Section Component.
+  // Provides contact information for Samuel.
+  const ContactSection = () => (
+    // O título da seção agora é dinâmico, baseado no idioma selecionado.
+    //
+    // The section title is now dynamic, based on the selected language.
+    <Section id="contact" title={sectionTitles.contact[currentLanguage] || sectionTitles.contact.pt}>
+      {/* Parágrafo de introdução para a seção de contato. */}
+      {/* Introduction paragraph for the contact section. */}
+      <p className="text-lg text-gray-300 mb-4">
+        {contentTranslations.contact.introParagraph[currentLanguage] || contentTranslations.contact.introParagraph.pt}
+      </p>
+      {/* Informações de contato com links clicáveis. */}
+      {/* Contact information with clickable links. */}
+      <div className="flex flex-col items-center space-y-4 text-lg text-gray-200">
+        <p>
+          <strong>{contentTranslations.contact.emailLabel[currentLanguage] || contentTranslations.contact.emailLabel.pt}</strong> <a href="mailto:samuelwhite777@outlook.com.br" className="text-blue-400 hover:underline">samuelwhite777@outlook.com.br</a>
+        </p>
+        <p>
+          <strong>{contentTranslations.contact.phoneLabel[currentLanguage] || contentTranslations.contact.phoneLabel.pt}</strong> <a href="tel:+5551993278018" className="text-blue-400 hover:underline">51 99327-8018</a>
+        </p>
+        <p>
+          <strong>{contentTranslations.contact.locationLabel[currentLanguage] || contentTranslations.contact.locationLabel.pt}</strong> Itapema - SC, Brasil
+        </p>
+        {/* Você pode adicionar links para LinkedIn ou GitHub aqui se desejar. */}
+        {/* You can add LinkedIn ou GitHub links here if you wish. */}
+      </div>
+    </Section>
+  );
+
+  // Função que decide qual seção renderizar com base no estado 'activeSection'.
+  //
+  // Function that decides which section to render based on the 'activeSection' state.
+  const renderSection = () => {
+    switch (activeSection) {
+      case 'home':
+        return <HeroSection />;
+      case 'about':
+        return <AboutSection />;
+      case 'experience':
+        return <ExperienceSection />;
+      case 'projects-expertise': // Nome da seção atualizado.
+        return <ProjectsAndExpertiseSection />;
+      case 'contact':
+        return <ContactSection />;
+      default: // Caso nenhum corresponda, volta para a seção inicial.
+        return <HeroSection />;
+    }
+  };
+
+  return (
+    // O div principal que envolve toda a aplicação.
+    // 'font-sans antialiased': Define uma fonte sem serifa e suaviza o texto.
+    // 'bg-gray-900 text-gray-100': Define o fundo global como cinza escuro e a cor do texto padrão como cinza claro.
+    //
+    // The main div that wraps the entire application.
+    // 'font-sans antialiased': Sets a sans-serif font and antialiases text.
+    // 'bg-gray-900 text-gray-100': Sets the global background to dark gray and the default text color to light gray.
+    <div className="font-sans antialiased bg-gray-900 text-gray-100">
+      {/* ATENÇÃO: O CDN do Tailwind CSS já está no index.html.
+          Não é necessário incluí-lo aqui novamente. */}
+      {/* ATTENTION: The Tailwind CSS CDN is already in index.html.
+          It is not necessary to include it here again. */}
+      <NavBar /> {/* Renderiza a barra de navegação. */}
+      <main className="pt-16"> {/* 'pt-16': Adiciona preenchimento superior para compensar a altura da barra de navegação fixa. */}
+        {/* Renders the navigation bar. */}
+        {/* 'pt-16': Adds top padding to account for the height of the fixed navigation bar. */}
+        {renderSection()} {/* Renderiza a seção ativa. */}
+        {/* Renders the active section. */}
+      </main>
+      <footer className="bg-gray-800 text-white p-6 text-center rounded-t-lg">
+        {/* Rodapé da página.
+            'bg-gray-800 text-white p-6 text-center rounded-t-lg': Estilo do rodapé para o tema escuro. */}
+        {/* Page footer.
+            'bg-gray-800 text-white p-6 text-center rounded-t-lg': Footer style for the dark theme. */}
+        <p>&copy; {new Date().getFullYear()} Samuel Pedroso. {contentTranslations.footer.copyright[currentLanguage] || contentTranslations.footer.copyright.pt}</p>
+      </footer>
+    </div>
+  );
+};
+
+// Exporta o componente App para que ele possa ser usado em outros arquivos (geralmente index.js).
+//
+// Exports the App component for use in other files (typically index.js).
+export default App;
+
